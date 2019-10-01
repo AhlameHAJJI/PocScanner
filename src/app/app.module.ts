@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
+import { NFC, Ndef } from '@ionic-native/nfc/ngx';
+import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -18,7 +20,11 @@ import { AppRoutingModule } from './app-routing.module';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     QRScanner,
-    Dialogs
+    Dialogs,
+    BluetoothLE,
+    NFC,
+    Ndef,
+
   ],
   bootstrap: [AppComponent]
 })
