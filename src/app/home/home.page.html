@@ -1,22 +1,21 @@
-<ion-header>
+<!-- <ion-header class="header">
   <ion-toolbar>
-    <ion-title>
-      <ion-icon name="qr-scanner"></ion-icon>
-      Start scanning
+    <ion-title class="title">
+       <ion-icon class="title_icon" ios="ios-bluetooth" md="md-bluetooth"></ion-icon>
+       <span class="title_text">pairing device</span> 
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
     
  <div class="ion-padding">
-    <ion-fab color="danger" slot="fixed"  class="qrScann">
-        <ion-fab-button (click)="this.qrCodeScannerService.StartScanningQRCode()">QRcode</ion-fab-button>
-        
-      </ion-fab>
-      <ion-fab color="danger" slot="fixed"  class="nfcScann">
-          <ion-fab-button (click)="this.nfcScannerService.StartScanningNFC()"  >NFC</ion-fab-button>
-      </ion-fab>
+   <div class="pairing">
+     <p class="title">Pairing devices</p>
+      <ion-img src='../assets/images/pairing.jpg'></ion-img>
+   </div>
+        <ion-button (click)="this.qrCodeScannerService.StartScanningQRCode()" expand="block" color="secondary" class="qrScann">QRcode</ion-button>
+        <ion-button (click)="this.nfcScannerService.StartScanningNFC()" expand="block"  color="danger" class="fabbutton" class="nfcScann">NFC</ion-button>
  </div>
  
 </ion-content>

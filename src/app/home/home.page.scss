@@ -1,15 +1,27 @@
+.title{
+    
+    text-align: center;
+    color: rgb(34, 117, 165);
+    font-size: 30px;
+     
+}
+
 .qrScann{
-    font-size: 70px;
-    top:30%;
-    left:50%;
-    transform: translate(-50%,-70%);
-    padding: 30px;
+    margin-top:60px;
+    height: 70px;
+    font-size: 30px;
+    
+    
+   
 }
 .nfcScann{
-    font-size: 70px;
-    top:60%;
-    left:50%;
-    transform: translate(-50%,-40%);
-    padding: 30px;
+    margin-top:20px;
+    font-size: 30px;
+    height: 70px;
 
 }
+
+// ion-content,ion-toolbar{
+//     --background: #fff url('../../assets/images/cover.jpg') no-repeat center center / cover;
+// }
+
