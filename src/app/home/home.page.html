@@ -1,18 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      QRScanner
+      <ion-icon name="qr-scanner"></ion-icon>
+      Start scanning
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content style='background: none transparent;'>
+<ion-content>
+    
  <div class="ion-padding">
-<ion-button (click)="StartScanning()" expand="full" color="danger">
- Scanning the QRcode
-</ion-button>
-<ion-button  expand="full" color="danger">
-  Scanning the NFC
- </ion-button>
+    <ion-fab color="danger" slot="fixed"  class="qrScann">
+        <ion-fab-button (click)="this.qrCodeScannerService.StartScanningQRCode()">QRcode</ion-fab-button>
+        
+      </ion-fab>
+      <ion-fab color="danger" slot="fixed"  class="nfcScann">
+          <ion-fab-button (click)="this.nfcScannerService.StartScanningNFC()"  >NFC</ion-fab-button>
+      </ion-fab>
  </div>
 </ion-content>
