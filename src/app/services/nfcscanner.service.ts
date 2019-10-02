@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform, AlertController } from "@ionic/angular";
 import { NFC, Ndef } from "@ionic-native/nfc/ngx";
-
+import {BLEService} from '../services/ble.service';
 @Injectable({
   providedIn: 'root'
 })

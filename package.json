@@ -32,7 +32,9 @@
     "cordova-android": "^8.1.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-add-swift-support": "^2.0.2",
+    "cordova-plugin-ble-central": "^1.2.2",
     "cordova-plugin-bluetoothle": "^4.5.5",
+    "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-qrscanner": "^3.0.1",
     "core-js": "^2.5.4",
@@ -87,7 +89,10 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-dialogs": {},
       "cordova-plugin-bluetoothle": {},
-      "phonegap-nfc-fxmanifest": {}
+      "phonegap-nfc-fxmanifest": {},
+      "cordova-plugin-ble-central": {
+        "BLUETOOTH_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": [
       "ios",

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform, AlertController } from "@ionic/angular";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
+import {BLEService} from '../services/ble.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +10,8 @@ export class QRCodeScannerService {
   constructor(
     public qr: QRScanner,
     private alertCtrl: AlertController,
-    public platform: Platform
+    public platform: Platform,
+    public bleService: BLEService
   ) {
     //Now Disable scanning when back button is pressed
     this.platform.backButton.subscribeWithPriority(0, () => {
@@ -33,11 +35,11 @@ export class QRCodeScannerService {
         window.document.getElementsByTagName("body")[0].style.opacity = "0";
         this.qrScan = this.qr.scan().subscribe(
           (textFound: string) => {
-            this.qr.enableLight();
             window.document.getElementsByTagName("body")[0].style.opacity = "1";
             this.qr.hide();
             this.qrScan.unsubscribe();
-            this.presentAlert(textFound);
+            this.bleService.bleConnexion(textFound);
+           // this.presentAlert(textFound);
             // this.bluetoothle.enable();
             // this.bluetoothle.connect({
             //   address: "" + textFound + "",
