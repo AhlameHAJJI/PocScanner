@@ -38,8 +38,11 @@ export class QRCodeScannerService {
             window.document.getElementsByTagName("body")[0].style.opacity = "1";
             this.qr.hide();
             this.qrScan.unsubscribe();
-            this.bleService.bleConnexion(textFound);
-           // this.presentAlert(textFound);
+            this.bleService.bleScan(textFound);
+            let response =this.bleService.bleConnexion(textFound);
+            this.presentAlert(response)
+          
+            // this.presentAlert(textFound);
             // this.bluetoothle.enable();
             // this.bluetoothle.connect({
             //   address: "" + textFound + "",

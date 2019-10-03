@@ -1,12 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable , NgZone } from "@angular/core";
 import { BluetoothLE } from "@ionic-native/bluetooth-le/ngx";
 import { BLE} from "@ionic-native/ble/ngx";
 import { AlertController } from "@ionic/angular";
+
+// Bluetooth UUIDs
+const LIGHTBULB_SERVICE = 'ff10';
+const SWITCH_CHARACTERISTIC = 'ff11';
+const DIMMER_CHARACTERISTIC = 'ff12';
 @Injectable({
   providedIn: "root"
 })
 export class BLEService {
-  constructor(public bluetoothle: BluetoothLE, public alertCtrl: AlertController, public ble: BLE) {}
+  devices: any[] = [];
+  peripheral: any = {};
+  statusMessage: string;
+  power: boolean;
+  constructor(public bluetoothle: BluetoothLE, public alertCtrl: AlertController, public ble: BLE, public ngZone: NgZone ) {}
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       message: msg,
@@ -15,77 +24,73 @@ export class BLEService {
 
     await alert.present();
   }
-  bleConnexion(adressMAC: any) {
+ 
+  bleScan(adress) {
+    //this.presentAlert('Scanning for Bluetooth LE Devices');
+    this.devices = [];  // clear list
+
+    this.ble.scan([], 5).subscribe(
+      device => this.onDeviceDiscovered(device,adress), 
+      error => this.scanError(error)
+    );
+
+    setTimeout(this.setStatus.bind(this), 5000, 'Scan complete');
+
+  }
+
+  onDeviceDiscovered(device, adress) {
     
-      // new Promise((resolve) => {
-      //   bluetoothle.initialize(resolve, { request: true, statusReceiver: false });
-      // }).then(this.initializeSuccess, this.handleError);
-       this.ble.connect(adressMAC);
+    this.ngZone.run(() => {
+      // if(device.id== adress)
+      this.devices.push(device);
+     
+    });
+    //this.presentAlert('id ' + device.id);
+   //this.presentAlert('Scanned device ' + JSON.stringify(device, null, 2));
+   //this.presentAlert('devices taille' + this.devices.length);
+  }
+  scanError(error) {
+    this.setStatus('Error ' + error);
+    this.presentAlert(
+      'Error scanning for Bluetooth low energy devices');
+    
+  }
+
+  setStatus(message) {
+    console.log(message);
+    this.ngZone.run(() => {
+      this.statusMessage = message;
+    });
+  }
+
+  bleConnexion(adressMAC) {
+
+     let response = this.ble.connect(adressMAC).subscribe(
+        
+        (peripheral)=>{ this.presentAlert("connected");this.onConnected(peripheral);
+          //window.location.replace('/connexion');
+        },
+          ()=>{this.presentAlert("not connected")}
+      );
+      return JSON.stringify(response);
+      
+      // this.ble.disconnect(adressMAC);
     }
-  //  initializeSuccess = (result) => {
-  //   if (result.status === "enabled") {
-  //     this.presentAlert("Bluetooth is enabled.");
-  //     this.presentAlert(result);
-  //   } else {
+    onConnected(peripheral) {
+      this.peripheral = peripheral;
+      // this.ble.read(this.peripheral.id, LIGHTBULB_SERVICE, SWITCH_CHARACTERISTIC).then(
+      //   buffer => {
+      //     let data = new Uint8Array(buffer);
+      //     this.ngZone.run(() => {
+      //         this.power = data[0] !== 0;
+      //     });
+      //   }
+      // )
+    }
+    onDeviceDisconnected() {
+      this.presentAlert('The peripheral unexpectedly disconnectedAl');
+    }
+ 
 
-  //     this.presentAlert("Bluetooth is not enabled");
-  //     this.presentAlert(result);
-  //   }
-  // }
-  //  handleError = (error) => {
-
-  //   let msg;
-
-    // if (error.error && error.message) {
-    //     let errorItems = [];
-    //     if (error.service) {
-    //         errorItems.push("service: " + (uuids[error.service] || error.service));
-    //     }
-    //     if (error.characteristic) {
-    //         errorItems.push("characteristic: " + (uuids[error.characteristic] || error.characteristic));
-    //     }
-    //     msg = "Error on " + error.error + ": " + error.message + (errorItems.length && (" (" + errorItems.join(", ") + ")"));
-    // }
-
-    // else {
-
-    //     msg = error;
-    // }
-
-    // log(msg, "error");
-
-    // if (error.error === "read" && error.service && error.characteristic) {
-
-    //     reportValue(error.service, error.characteristic, "Error: " + error.message);
-    // }
-  //}
-  // bleConnexion(adressMAC: string) {
-    
-  //   // new Promise((resolve) => {
-  //   //   bluetoothle.initialize(resolve, { request: true, statusReceiver: false });
-  //   // }).then(this.initializeSuccess, this.handleError);
-  //   this.ble.connect(adressMAC);
-  // }
-//   connect(address) {
-
-//     log('Connecting to device: ' + address + "...", "status");
-
-//     if (cordova.platformId === "windows") {
-
-//         getDeviceServices(address);
-
-//     }
-//     else {
-
-//         stopScan();
-
-//         new Promise(function (resolve, reject) {
-
-//             bluetoothle.connect(resolve, reject, { address: address });
-
-//         }).then(connectSuccess, handleError);
-
-//     }
-// }
 
 }

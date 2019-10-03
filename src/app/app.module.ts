@@ -5,8 +5,8 @@ import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 import { BLE } from '@ionic-native/ble/ngx';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {Dialogs} from '@ionic-native/dialogs/ngx';
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
     BLE,
     NFC,
     Ndef,
-
+    SplashScreen
   ],
   bootstrap: [AppComponent]
 })
