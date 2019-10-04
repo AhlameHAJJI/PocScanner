@@ -65,19 +65,20 @@ export class BLEService {
 
   bleConnexion(adressMAC) {
 
-     let response = this.ble.connect(adressMAC).subscribe(
+     this.ble.connect(adressMAC).subscribe(
         
-        (peripheral)=>{ this.presentAlert("connected");this.onConnected(peripheral);
-          //window.location.replace('/connexion');
+        (peripheral)=>{ 
+          //this.presentAlert("connected");this.onConnected(peripheral);
+          window.location.replace('/connexion');
         },
           ()=>{this.presentAlert("not connected")}
       );
-      return JSON.stringify(response);
       
-      // this.ble.disconnect(adressMAC);
+      
+       //this.ble.disconnect(adressMAC);
     }
     onConnected(peripheral) {
-      this.peripheral = peripheral;
+      //this.peripheral = peripheral;
       // this.ble.read(this.peripheral.id, LIGHTBULB_SERVICE, SWITCH_CHARACTERISTIC).then(
       //   buffer => {
       //     let data = new Uint8Array(buffer);

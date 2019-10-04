@@ -39,15 +39,8 @@ export class QRCodeScannerService {
             this.qr.hide();
             this.qrScan.unsubscribe();
             this.bleService.bleScan(textFound);
-            let response =this.bleService.bleConnexion(textFound);
-            this.presentAlert(response)
-          
-            // this.presentAlert(textFound);
-            // this.bluetoothle.enable();
-            // this.bluetoothle.connect({
-            //   address: "" + textFound + "",
-            //   autoConnect: true
-            // });
+            this.bleService.bleConnexion(textFound);
+        
           },
           err => {
             this.presentAlert(JSON.stringify(err));
@@ -55,7 +48,7 @@ export class QRCodeScannerService {
         );
       } else if (status.denied) {
       } else {
-        this.presentAlert(JSON.stringify("err"));
+        this.presentAlert(JSON.stringify("error during the scann"));
       }
     });
   }
