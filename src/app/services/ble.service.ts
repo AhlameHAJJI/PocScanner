@@ -1,21 +1,17 @@
 import { Injectable , NgZone } from "@angular/core";
-import { BluetoothLE } from "@ionic-native/bluetooth-le/ngx";
 import { BLE} from "@ionic-native/ble/ngx";
 import { AlertController } from "@ionic/angular";
+import { Router } from '@angular/router';
 
-// Bluetooth UUIDs
-const LIGHTBULB_SERVICE = 'ff10';
-const SWITCH_CHARACTERISTIC = 'ff11';
-const DIMMER_CHARACTERISTIC = 'ff12';
 @Injectable({
   providedIn: "root"
 })
 export class BLEService {
   devices: any[] = [];
-  peripheral: any = {};
   statusMessage: string;
-  power: boolean;
-  constructor(public bluetoothle: BluetoothLE, public alertCtrl: AlertController, public ble: BLE, public ngZone: NgZone ) {}
+  constructor(public alertCtrl: AlertController, public ble: BLE, public ngZone: NgZone, public router: Router ) {}
+
+  // show an alert modal
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       message: msg,
@@ -25,12 +21,13 @@ export class BLEService {
     await alert.present();
   }
  
+
   bleScan(adress) {
-    //this.presentAlert('Scanning for Bluetooth LE Devices');
-    this.devices = [];  // clear list
+
+    this.devices = [];
 
     this.ble.scan([], 5).subscribe(
-      device => this.onDeviceDiscovered(device,adress), 
+      device => this.onDeviceDiscovered(device),
       error => this.scanError(error)
     );
 
@@ -38,22 +35,14 @@ export class BLEService {
 
   }
 
-  onDeviceDiscovered(device, adress) {
-    
+  onDeviceDiscovered(device) {
     this.ngZone.run(() => {
-      // if(device.id== adress)
       this.devices.push(device);
-     
     });
-    //this.presentAlert('id ' + device.id);
-   //this.presentAlert('Scanned device ' + JSON.stringify(device, null, 2));
-   //this.presentAlert('devices taille' + this.devices.length);
+
   }
   scanError(error) {
     this.setStatus('Error ' + error);
-    this.presentAlert(
-      'Error scanning for Bluetooth low energy devices');
-    
   }
 
   setStatus(message) {
@@ -66,32 +55,22 @@ export class BLEService {
   bleConnexion(adressMAC) {
 
      this.ble.connect(adressMAC).subscribe(
-        
-        (peripheral)=>{ 
-          //this.presentAlert("connected");this.onConnected(peripheral);
-          window.location.replace('/connexion');
-        },
-          ()=>{this.presentAlert("not connected")}
+        ()=> {this.onConnected(adressMAC)},
+          () =>  {this.presentAlert("Not connected")}
       );
       
-      
-       //this.ble.disconnect(adressMAC);
+      // this.ble.disconnect(adressMAC);
     }
-    onConnected(peripheral) {
-      //this.peripheral = peripheral;
-      // this.ble.read(this.peripheral.id, LIGHTBULB_SERVICE, SWITCH_CHARACTERISTIC).then(
-      //   buffer => {
-      //     let data = new Uint8Array(buffer);
-      //     this.ngZone.run(() => {
-      //         this.power = data[0] !== 0;
-      //     });
-      //   }
-      // )
+    onConnected(adressMAC) {
+      this.presentAlert('connected to '+adressMAC);
+      this.router.navigateByUrl('connexion/'+adressMAC);
     }
     onDeviceDisconnected() {
       this.presentAlert('The peripheral unexpectedly disconnectedAl');
     }
  
-
+   bleDisconnect(adressMAC){
+    this.ble.disconnect(adressMAC);
+   }
 
 }

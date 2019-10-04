@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { timer } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -10,6 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  showSplash = true; // <-- show animation
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -22,6 +24,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3s
     });
   }
 }

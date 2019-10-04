@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { Platform } from "@ionic/angular";
-import { BLE } from "@ionic-native/ble/ngx";
 import {QRCodeScannerService} from "../services/qrcode-scanner.service";
 import {NFCScannerService} from "../services/nfcscanner.service";
 import {BLEService} from '../services/ble.service';
+
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
@@ -18,7 +18,7 @@ export class HomePage {
     public nfcScannerService: NFCScannerService,
     public bleService: BLEService,
   ) {
-  
+   
   }
 
 }

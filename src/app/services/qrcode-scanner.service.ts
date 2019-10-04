@@ -40,6 +40,7 @@ export class QRCodeScannerService {
             this.qrScan.unsubscribe();
             this.bleService.bleScan(textFound);
             this.bleService.bleConnexion(textFound);
+            //this.bleService.bleDisconnect(textFound);
         
           },
           err => {
