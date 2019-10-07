@@ -22,7 +22,7 @@ export class BLEService {
   }
  
 
-  bleScan(adress) {
+  bleScan() {
 
     this.devices = [];
 
@@ -55,15 +55,18 @@ export class BLEService {
   bleConnexion(adressMAC) {
 
      this.ble.connect(adressMAC).subscribe(
-        ()=> {this.onConnected(adressMAC)},
-          () =>  {this.presentAlert("Not connected")}
+        ()=> {
+          this.router.navigateByUrl('connexion/'+adressMAC);
+          // window.location.replace('connexion');
+        },
+        () =>  {this.presentAlert('Not connected')}
       );
-      
       // this.ble.disconnect(adressMAC);
     }
     onConnected(adressMAC) {
-      this.presentAlert('connected to '+adressMAC);
-      this.router.navigateByUrl('connexion/'+adressMAC);
+      //this.presentAlert('connected to '+adressMAC);
+     this.router.navigateByUrl('connexion/'+adressMAC);
+       // window.location.replace('connexion');
     }
     onDeviceDisconnected() {
       this.presentAlert('The peripheral unexpectedly disconnectedAl');

@@ -13,12 +13,13 @@ export class QRCodeScannerService {
     public platform: Platform,
     public bleService: BLEService
   ) {
-    //Now Disable scanning when back button is pressed
+    // Disable scanning when back button is pressed
     this.platform.backButton.subscribeWithPriority(0, () => {
       document.getElementsByTagName("body")[0].style.opacity = "1";
       this.qrScan.unsubscribe();
     });
   }
+  //show an alert dialog
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       message: msg,
@@ -27,6 +28,8 @@ export class QRCodeScannerService {
 
     await alert.present();
   }
+
+  //Start qrcode scann
   StartScanningQRCode() {
 
     this.qr.prepare().then((status: QRScannerStatus) => {
@@ -38,16 +41,16 @@ export class QRCodeScannerService {
             window.document.getElementsByTagName("body")[0].style.opacity = "1";
             this.qr.hide();
             this.qrScan.unsubscribe();
-            this.bleService.bleScan(textFound);
-            this.bleService.bleConnexion(textFound);
-            //this.bleService.bleDisconnect(textFound);
-        
+            this.bleService.bleScan();
+           this.bleService.bleConnexion(textFound);
+           //this.bleService.bleDisconnect(textFound);
           },
           err => {
             this.presentAlert(JSON.stringify(err));
           }
         );
       } else if (status.denied) {
+        this.presentAlert('Scan denied');
       } else {
         this.presentAlert(JSON.stringify("error during the scann"));
       }

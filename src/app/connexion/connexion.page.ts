@@ -8,18 +8,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ConnexionPage implements OnInit {
   connected : boolean = true;
+  disconnected: boolean = false;
   constructor(public bleService: BLEService,public activatedRoute: ActivatedRoute) { }
-  adressMAC : string;
+  adressMAC = null;
 
   ngOnInit() {
-    this.adressMAC = this.activatedRoute.snapshot.paramMap.get('adressMac');
+    this.adressMAC = this.activatedRoute.snapshot.paramMap.get('adressMAC');
   }
 
   disconnect(){
    this.bleService.bleDisconnect(this.adressMAC);
    this.connected = false;
+   this.disconnected=true;
   }
   connect(){
+
     this.bleService.bleConnexion(this.adressMAC);
+    this.connected = true;
+    this.disconnected=false;
    }
 }

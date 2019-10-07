@@ -7,21 +7,31 @@
 }
 
 .qrScann{
+    --background:transparent;
+    --ion-color-base: transparent !important;
     margin-top:60px;
     height: 70px;
     font-size: 30px;
+    border : 1px solid rgb(229, 116, 96);
+    border-radius: 20px;
     
     
    
 }
 .nfcScann{
+    --background:transparent;
+    --ion-color-base: transparent !important;
     margin-top:20px;
     font-size: 30px;
     height: 70px;
-
+    border : 1px solid rgb(229, 116, 96);
+    border-radius: 20px;
+  
+}
+.pairing{
+    margin-top: 10%;
 }
 
-// ion-content,ion-toolbar{
-//     --background: #fff url('../../assets/images/cover.jpg') no-repeat center center / cover;
-// }
-
+.home{
+    --background:rgb(30, 41, 103);
+}

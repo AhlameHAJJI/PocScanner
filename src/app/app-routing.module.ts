@@ -5,7 +5,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'connexion/:adressMAC', loadChildren: './connexion/connexion.module#ConnexionPageModule' },
-  { path: 'splash', loadChildren: './splash/splash.module#SplashPageModule' },
 ];
 
 @NgModule({

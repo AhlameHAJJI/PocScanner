@@ -1,11 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>connexion</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-<ion-label color="danger">Connexion established to the peripheral </ion-label>
-<ion-button color="light" (click)="disconnect()" ngIf="connected">Disconnect the peripheral</ion-button>
-<!-- <ion-button color="light" (click)="connect()" ngIf="!connected">Connect to the peripheral</ion-button> -->
+<ion-content class="connexion">
+<ion-row class="row">
+    <ion-col text-center>
+    
+    <ion-label  class="connection__title"> 
+            <ion-icon ios="ios-radio-button-on" md="md-radio-button-on" class="icon"></ion-icon>  <ion-label class="adress">{{adressMAC}} </ion-label>
+    </ion-label>
+        <ion-button color="light" (click)="disconnect()" color='primary' expand="block" class="connexion_button" *ngIf="connected">Disconnect</ion-button>
+        <ion-button color="light" (click)="connect()" color='primary' expand="block" class="connexion_button"  *ngIf="disconnected">Connect </ion-button> 
+    </ion-col>
+</ion-row>
+
+
 </ion-content>

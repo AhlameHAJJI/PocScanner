@@ -7,15 +7,15 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<ion-content class="home">
     
  <div class="ion-padding">
    <div class="pairing">
-     <p class="title">Pairing devices</p>
-      <ion-img src='../assets/images/pairing.jpg'></ion-img>
+     <!-- <p class="title">Poc Scanner</p> -->
+      <ion-img src='../assets/images/logo_home.PNG'></ion-img>
    </div>
-        <ion-button (click)="this.qrCodeScannerService.StartScanningQRCode()" expand="block" color="secondary" class="qrScann">QRcode</ion-button>
-        <ion-button (click)="this.nfcScannerService.StartScanningNFC()" expand="block"  color="danger" class="fabbutton" class="nfcScann">NFC</ion-button>
+        <ion-button (click)="this.qrCodeScannerService.StartScanningQRCode()" expand="block" color="primary" class="qrScann">QRcode</ion-button>
+        <ion-button (click)="this.nfcScannerService.StartScanningNFC()" expand="block" color="secondary" class="nfcScann">NFC</ion-button>
  </div>
  
 </ion-content>

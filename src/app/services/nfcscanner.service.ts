@@ -10,7 +10,8 @@ export class NFCScannerService {
   constructor(
     public nfc: NFC,
     public ndef: Ndef,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private bleService: BLEService) { }
 
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
@@ -37,6 +38,8 @@ export class NFCScannerService {
         this.presentAlert(
           "decoded tag id : " + this.nfc.bytesToHexString(event.tag.id)
         );
+        this.bleService.bleScan();
+        this.bleService.bleConnexion(event.tag.id);
         let message = this.ndef.textRecord("test");
         this.nfc
           .share([message])
